@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_caclulator/CalculatorController.dart';
 
 void main() {
   runApp(CalculatorApp());
@@ -8,18 +9,47 @@ class CalculatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Simple Calculator',
+      title: 'MVC Calculator',
       home: Calculator(),
     );
   }
 }
 
-class Calculator extends StatelessWidget {
+class Calculator extends StatefulWidget {
+  @override
+  _CalculatorState createState() => _CalculatorState();
+}
+
+class _CalculatorState extends State<Calculator> {
+  final controller = CalculatorController();
+
+  Widget buildButton(String buttonText) {
+    return Expanded(
+      child: OutlinedButton(
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onPressed: () {
+          setState(() {
+            controller.buttonPressed(buttonText);
+          });
+        },
+        style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.all(24.0),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calculator UI'),
+        title: Text('MVC Calculator'),
       ),
       body: Container(
         child: Column(
@@ -29,7 +59,7 @@ class Calculator extends StatelessWidget {
                 padding: EdgeInsets.all(20.0),
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  '0',
+                  controller.output,
                   style: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -77,22 +107,6 @@ class Calculator extends StatelessWidget {
       ),
     );
   }
-
-  Widget buildButton(String buttonText) {
-    return Expanded(
-      child: OutlinedButton(
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        onPressed: () {},
-        style: OutlinedButton.styleFrom(
-          padding: EdgeInsets.all(24.0),
-        ),
-      ),
-    );
-  }
 }
+
+
