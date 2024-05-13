@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_caclulator/CalculatorController.dart';
+import 'package:flutter_caclulator/ConverterPage.dart';
 
 void main() {
   runApp(CalculatorApp());
@@ -54,6 +55,14 @@ class _CalculatorState extends State<Calculator> {
       body: Container(
         child: Column(
           children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ConverterPage()),
+                );
+              },
+              child: Text('Distance converter'),
+            ),
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(20.0),
